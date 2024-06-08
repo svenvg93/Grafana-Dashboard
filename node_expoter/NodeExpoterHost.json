@@ -1,41 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_PROMETHEUS",
-      "label": "prometheus",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "prometheus",
-      "pluginName": "Prometheus"
-    }
-  ],
-  "__elements": {},
-  "__requires": [
-    {
-      "type": "grafana",
-      "id": "grafana",
-      "name": "Grafana",
-      "version": "11.0.0"
-    },
-    {
-      "type": "datasource",
-      "id": "prometheus",
-      "name": "Prometheus",
-      "version": "1.0.0"
-    },
-    {
-      "type": "panel",
-      "id": "stat",
-      "name": "Stat",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "timeseries",
-      "name": "Time series",
-      "version": ""
-    }
-  ],
   "annotations": {
     "list": [
       {
@@ -56,13 +19,13 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
-  "id": null,
+  "id": 18,
   "links": [],
   "panels": [
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -125,7 +88,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "ds_prometheus"
           },
           "expr": "node_time_seconds - node_boot_time_seconds",
           "interval": "30s",
@@ -141,7 +104,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -205,7 +168,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "ds_prometheus"
           },
           "expr": "sum(rate(node_cpu_seconds_total{mode=\"idle\"}[1m])) * 100 / scalar(count(node_cpu_seconds_total{mode=\"user\"}))",
           "interval": "10s",
@@ -222,7 +185,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -284,7 +247,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "ds_prometheus"
           },
           "editorMode": "code",
           "expr": "count(node_cpu_seconds_total{mode=\"idle\"})",
@@ -302,7 +265,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -364,7 +327,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "ds_prometheus"
           },
           "expr": "node_memory_MemAvailable_bytes",
           "interval": "30s",
@@ -381,7 +344,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -443,7 +406,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "ds_prometheus"
           },
           "expr": "node_memory_SwapFree_bytes",
           "interval": "30s",
@@ -459,7 +422,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -521,7 +484,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "ds_prometheus"
           },
           "editorMode": "code",
           "expr": "sum(node_filesystem_free_bytes)",
@@ -540,7 +503,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -638,7 +601,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "ds_prometheus"
           },
           "expr": "node_load1",
           "interval": "10s",
@@ -654,7 +617,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -752,7 +715,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "ds_prometheus"
           },
           "expr": "node_procs_running",
           "interval": "10s",
@@ -765,7 +728,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "ds_prometheus"
           },
           "expr": "node_procs_blocked",
           "interval": "10s",
@@ -782,7 +745,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -879,7 +842,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "ds_prometheus"
           },
           "expr": " irate(node_intr_total[5m])",
           "interval": "10s",
@@ -896,7 +859,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -986,7 +949,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "ds_prometheus"
           },
           "expr": "sum(rate(node_cpu_seconds_total[1m])) by (mode) * 100 / scalar(count(node_cpu_seconds_total{mode=\"user\"}))",
           "intervalFactor": 10,
@@ -1002,7 +965,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -1148,7 +1111,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "ds_prometheus"
           },
           "expr": "node_memory_MemTotal_bytes - (node_memory_MemFree_bytes + node_memory_Buffers_bytes + node_memory_Cached_bytes)",
           "intervalFactor": 1,
@@ -1159,7 +1122,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "ds_prometheus"
           },
           "expr": "node_memory_MemFree_bytes",
           "intervalFactor": 1,
@@ -1170,7 +1133,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "ds_prometheus"
           },
           "expr": "node_memory_Buffers_bytes",
           "intervalFactor": 1,
@@ -1181,7 +1144,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "ds_prometheus"
           },
           "expr": "node_memory_Cached_bytes",
           "intervalFactor": 1,
@@ -1196,7 +1159,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -1299,7 +1262,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "ds_prometheus"
           },
           "expr": "sum(irate(node_disk_read_bytes_total[1m]))",
           "interval": "",
@@ -1312,7 +1275,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "ds_prometheus"
           },
           "expr": "sum(irate(node_disk_written_bytes_total[1m]))",
           "intervalFactor": 1,
@@ -1324,7 +1287,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "ds_prometheus"
           },
           "expr": "sum(irate(node_disk_io_time_seconds_total[1m]))",
           "intervalFactor": 1,
@@ -1340,7 +1303,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -1425,7 +1388,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "ds_prometheus"
           },
           "editorMode": "code",
           "expr": "irate(node_network_receive_bytes_total{device!~\"veth.+|br.+|docker0|lo|eth0\"}[1m])",
@@ -1439,7 +1402,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "ds_prometheus"
           },
           "editorMode": "code",
           "expr": "irate(node_network_transmit_bytes_total{device!~\"veth.+|br.+|docker0|lo|eth0\"}[1m])",
@@ -1457,7 +1420,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -1573,7 +1536,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "ds_prometheus"
           },
           "expr": "node_memory_SwapTotal_bytes - node_memory_SwapFree_bytes",
           "interval": "10s",
@@ -1585,7 +1548,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "ds_prometheus"
           },
           "expr": "node_memory_SwapFree_bytes",
           "interval": "10s",
@@ -1601,7 +1564,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -1685,7 +1648,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "ds_prometheus"
           },
           "editorMode": "code",
           "expr": "node_filesystem_free_bytes{mountpoint=\"/\"}",
@@ -1697,7 +1660,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "ds_prometheus"
           },
           "editorMode": "code",
           "expr": "node_filesystem_size_bytes{mountpoint=\"/\"} - node_filesystem_free_bytes{mountpoint=\"/\"}",
