@@ -15,7 +15,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "11.0.0"
+      "version": "11.1.0"
     },
     {
       "type": "datasource",
@@ -110,12 +110,12 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Connection ID"
+              "options": "Location"
             },
             "properties": [
               {
                 "id": "custom.width",
-                "value": 125
+                "value": 80
               }
             ]
           },
@@ -127,7 +127,7 @@
             "properties": [
               {
                 "id": "custom.width",
-                "value": 105
+                "value": 80
               }
             ]
           }
@@ -154,7 +154,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "11.0.0",
+      "pluginVersion": "11.1.0",
       "targets": [
         {
           "datasource": {
@@ -162,7 +162,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "disableTextWrap": false,
-          "editorMode": "code",
+          "editorMode": "builder",
           "expr": "cloudflared_tunnel_server_locations > 0",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
@@ -270,7 +270,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.0.0",
+      "pluginVersion": "11.1.0",
       "targets": [
         {
           "datasource": {
@@ -372,7 +372,6 @@
           "showLegend": true
         },
         "tooltip": {
-          "maxHeight": 600,
           "mode": "single",
           "sort": "none"
         }
@@ -478,7 +477,6 @@
           "showLegend": true
         },
         "tooltip": {
-          "maxHeight": 600,
           "mode": "single",
           "sort": "none"
         }
@@ -613,7 +611,6 @@
           "showLegend": true
         },
         "tooltip": {
-          "maxHeight": 600,
           "mode": "single",
           "sort": "none"
         }
@@ -630,7 +627,7 @@
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "Active Sessions",
+          "legendFormat": "TCP",
           "range": true,
           "refId": "A",
           "useBackend": false
@@ -642,18 +639,18 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "rate(cloudflared_tcp_total_sessions[$__rate_interval])",
+          "expr": "cloudflared_udp_active_sessions",
           "fullMetaSearch": false,
           "hide": false,
-          "includeNullMetadata": false,
+          "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "Total Sessions",
+          "legendFormat": "UDP",
           "range": true,
           "refId": "B",
           "useBackend": false
         }
       ],
-      "title": "TCP Sessions",
+      "title": "Sessions",
       "type": "timeseries"
     },
     {
@@ -661,6 +658,7 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
+      "description": "Top 5 Only",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -684,7 +682,7 @@
             "insertNulls": false,
             "lineInterpolation": "smooth",
             "lineWidth": 2,
-            "pointSize": 1,
+            "pointSize": 5,
             "scaleDistribution": {
               "type": "linear"
             },
@@ -698,6 +696,7 @@
               "mode": "off"
             }
           },
+          "decimals": 2,
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -721,7 +720,7 @@
         "x": 12,
         "y": 7
       },
-      "id": 18,
+      "id": 75,
       "options": {
         "legend": {
           "calcs": [
@@ -730,11 +729,10 @@
             "max"
           ],
           "displayMode": "table",
-          "placement": "bottom",
+          "placement": "right",
           "showLegend": true
         },
         "tooltip": {
-          "maxHeight": 600,
           "mode": "single",
           "sort": "none"
         }
@@ -747,34 +745,17 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "cloudflared_udp_active_sessions",
+          "expr": "topk(3, sum by(status_code) (rate(cloudflared_tunnel_response_by_code[$__rate_interval])))",
           "fullMetaSearch": false,
-          "includeNullMetadata": true,
+          "includeNullMetadata": false,
           "instant": false,
-          "legendFormat": "Active Sessions",
+          "legendFormat": "__auto",
           "range": true,
           "refId": "A",
           "useBackend": false
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "rate(cloudflared_udp_total_sessions[$__rate_interval])",
-          "fullMetaSearch": false,
-          "hide": false,
-          "includeNullMetadata": false,
-          "instant": false,
-          "legendFormat": "Total",
-          "range": true,
-          "refId": "B",
-          "useBackend": false
         }
       ],
-      "title": "UDP Sessions",
+      "title": "HTTP by Code",
       "type": "timeseries"
     },
     {
@@ -869,7 +850,6 @@
           "showLegend": true
         },
         "tooltip": {
-          "maxHeight": 600,
           "mode": "single",
           "sort": "none"
         }
@@ -989,7 +969,6 @@
           "showLegend": true
         },
         "tooltip": {
-          "maxHeight": 600,
           "mode": "single",
           "sort": "none"
         }
@@ -1111,7 +1090,6 @@
           "showLegend": true
         },
         "tooltip": {
-          "maxHeight": 600,
           "mode": "single",
           "sort": "none"
         }
@@ -1179,19 +1157,22 @@
               "mode": "off"
             }
           },
+          "decimals": 2,
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "none"
         },
         "overrides": [
           {
@@ -1220,8 +1201,12 @@
       "id": 45,
       "options": {
         "legend": {
-          "calcs": [],
-          "displayMode": "list",
+          "calcs": [
+            "lastNotNull",
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
         },
@@ -1299,7 +1284,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1401,7 +1387,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1518,7 +1505,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1672,7 +1660,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1784,14 +1773,13 @@
     ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-2d",
     "to": "now"
   },
-  "timeRangeUpdatedDuringEditOrView": false,
   "timepicker": {},
   "timezone": "",
   "title": "Cloudflare Tunnels",
   "uid": "V1SL92dVn",
-  "version": 1,
+  "version": 17,
   "weekStart": ""
 }
