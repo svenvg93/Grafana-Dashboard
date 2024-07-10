@@ -163,7 +163,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "code",
-          "expr": "cloudflared_tunnel_server_locations",
+          "expr": "cloudflared_tunnel_server_locations > 0",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
