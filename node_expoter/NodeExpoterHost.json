@@ -15,7 +15,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "11.1.0"
+      "version": "11.3.1"
     },
     {
       "type": "datasource",
@@ -121,18 +121,24 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.1.0",
+      "pluginVersion": "11.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "node_time_seconds - node_boot_time_seconds",
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "node_time_seconds{instance=~\"$instance\"} - node_boot_time_seconds",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
           "interval": "30s",
           "intervalFactor": 1,
+          "range": true,
           "refId": "A",
-          "step": 30
+          "step": 30,
+          "useBackend": false
         }
       ],
       "timeFrom": "10s",
@@ -202,19 +208,25 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.1.0",
+      "pluginVersion": "11.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "sum(rate(node_cpu_seconds_total{mode=\"idle\"}[1m])) * 100 / scalar(count(node_cpu_seconds_total{mode=\"user\"}))",
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "(sum(rate(node_cpu_seconds_total{mode=\"idle\", instance=~\"$instance\"}[1m])) * 100) / scalar(count(node_cpu_seconds_total{mode=\"user\", instance=~\"$instance\"}))",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
           "interval": "10s",
           "intervalFactor": 2,
           "legendFormat": "",
+          "range": true,
           "refId": "A",
-          "step": 20
+          "step": 20,
+          "useBackend": false
         }
       ],
       "timeFrom": "10s",
@@ -282,20 +294,24 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.1.0",
+      "pluginVersion": "11.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "editorMode": "code",
-          "expr": "count(node_cpu_seconds_total{mode=\"idle\"})",
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "count(node_cpu_seconds_total{mode=\"idle\", instance=~\"$instance\"})",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
           "intervalFactor": 2,
           "metric": "machine_cpu_cores",
           "range": true,
           "refId": "A",
-          "step": 2
+          "step": 2,
+          "useBackend": false
         }
       ],
       "timeFrom": "10s",
@@ -363,19 +379,25 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.1.0",
+      "pluginVersion": "11.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "node_memory_MemAvailable_bytes",
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "expr": "node_memory_MemAvailable_bytes{instance=~\"$instance\"}",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
           "interval": "30s",
           "intervalFactor": 2,
           "legendFormat": "",
+          "range": true,
           "refId": "A",
-          "step": 60
+          "step": 60,
+          "useBackend": false
         }
       ],
       "timeFrom": "10s",
@@ -443,16 +465,18 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.1.0",
+      "pluginVersion": "11.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "node_memory_SwapFree_bytes",
+          "editorMode": "code",
+          "expr": "node_memory_SwapFree_bytes{instance=~\"$instance\"}",
           "interval": "30s",
           "intervalFactor": 2,
+          "range": true,
           "refId": "A",
           "step": 60
         }
@@ -522,21 +546,25 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.1.0",
+      "pluginVersion": "11.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "editorMode": "code",
-          "expr": "sum(node_filesystem_free_bytes)",
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "sum(node_filesystem_free_bytes{instance=~\"$instance\"})",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
           "interval": "30s",
           "intervalFactor": 1,
           "legendFormat": "",
           "range": true,
           "refId": "A",
-          "step": 30
+          "step": 30,
+          "useBackend": false
         }
       ],
       "timeFrom": "10s",
@@ -561,6 +589,7 @@
             "axisPlacement": "auto",
             "axisSoftMax": 0,
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 10,
             "gradientMode": "opacity",
@@ -633,6 +662,7 @@
           "sort": "desc"
         }
       },
+      "pluginVersion": "11.3.1",
       "targets": [
         {
           "datasource": {
@@ -641,7 +671,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "(sum by(mode) (rate(node_cpu_seconds_total{mode!=\"idle\"}[1m])) * 100) / scalar(count(node_cpu_seconds_total{mode=\"user\"}))",
+          "expr": "(sum by(mode) (rate(node_cpu_seconds_total{mode!=\"idle\", instance=~\"$instance\"}[1m])) * 100) / scalar(count(node_cpu_seconds_total{mode=\"user\", instance=~\"$instance\"}))",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "intervalFactor": 10,
@@ -673,6 +703,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 10,
             "gradientMode": "opacity",
@@ -801,26 +832,35 @@
           "sort": "desc"
         }
       },
+      "pluginVersion": "11.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "node_memory_MemTotal_bytes - (node_memory_MemFree_bytes + node_memory_Buffers_bytes + node_memory_Cached_bytes)",
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "node_memory_MemTotal_bytes{instance=~\"$instance\"} - (node_memory_MemFree_bytes{instance=~\"$instance\"} + node_memory_Buffers_bytes{instance=~\"$instance\"} + node_memory_Cached_bytes{instance=~\"$instance\"})",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
           "intervalFactor": 1,
           "legendFormat": "Used",
+          "range": true,
           "refId": "A",
-          "step": 1
+          "step": 1,
+          "useBackend": false
         },
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "node_memory_MemFree_bytes",
+          "editorMode": "code",
+          "expr": "node_memory_MemFree_bytes{instance=~\"$instance\"}",
           "intervalFactor": 1,
           "legendFormat": "Free",
+          "range": true,
           "refId": "B",
           "step": 1
         },
@@ -829,9 +869,11 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "node_memory_Buffers_bytes",
+          "editorMode": "code",
+          "expr": "node_memory_Buffers_bytes{instance=~\"$instance\"}",
           "intervalFactor": 1,
           "legendFormat": "Buffers",
+          "range": true,
           "refId": "C",
           "step": 1
         },
@@ -840,9 +882,11 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "node_memory_Cached_bytes",
+          "editorMode": "code",
+          "expr": "node_memory_Cached_bytes{instance=~\"$instance\"}",
           "intervalFactor": 1,
           "legendFormat": "Cached",
+          "range": true,
           "refId": "D",
           "step": 1
         }
@@ -867,6 +911,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 10,
             "gradientMode": "opacity",
@@ -953,29 +998,38 @@
           "sort": "none"
         }
       },
+      "pluginVersion": "11.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "sum(irate(node_disk_read_bytes_total[1m]))",
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "sum(irate(node_disk_read_bytes_total{instance=~\"$instance\"}[1m]))",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "read",
           "metric": "node_disk_read_bytes_total",
+          "range": true,
           "refId": "A",
-          "step": 1
+          "step": 1,
+          "useBackend": false
         },
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "sum(irate(node_disk_written_bytes_total[1m]))",
+          "editorMode": "code",
+          "expr": "sum(irate(node_disk_written_bytes_total{instance=~\"$instance\"}[1m]))",
           "intervalFactor": 1,
           "legendFormat": "written",
           "metric": "node_disk_written_bytes_total",
+          "range": true,
           "refId": "B",
           "step": 1
         },
@@ -984,10 +1038,12 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "sum(irate(node_disk_io_time_seconds_total[1m]))",
+          "editorMode": "code",
+          "expr": "sum(irate(node_disk_io_time_seconds_total{instance=~\"$instance\"}[1m]))",
           "intervalFactor": 1,
           "legendFormat": "io time",
           "metric": "node_disk_io_time_seconds_total",
+          "range": true,
           "refId": "C",
           "step": 1
         }
@@ -1012,6 +1068,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 10,
             "gradientMode": "opacity",
@@ -1043,7 +1100,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1079,34 +1137,43 @@
           "sort": "desc"
         }
       },
+      "pluginVersion": "11.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "editorMode": "code",
-          "expr": "irate(node_network_receive_bytes_total{device!~\"veth.+|br.+|docker0|lo|eth0\"}[1m])",
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "irate(node_network_receive_bytes_total{device!~\"veth.+|br.+|docker0|lo|eth0\", instance=~\"$instance\"}[1m])",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
           "intervalFactor": 1,
           "legendFormat": "In: {{ device }}",
           "metric": "node_network_receive_bytes_total",
           "range": true,
           "refId": "A",
-          "step": 1
+          "step": 1,
+          "useBackend": false
         },
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "editorMode": "code",
-          "expr": "irate(node_network_transmit_bytes_total{device!~\"veth.+|br.+|docker0|lo|eth0\"}[1m])",
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "irate(node_network_transmit_bytes_total{device!~\"veth.+|br.+|docker0|lo|eth0\", instance=~\"$instance\"}[1m])",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
           "intervalFactor": 1,
           "legendFormat": "Out: {{ device }}",
           "metric": "node_network_transmit_bytes_total",
           "range": true,
           "refId": "B",
-          "step": 1
+          "step": 1,
+          "useBackend": false
         }
       ],
       "title": "Network Usage",
@@ -1129,6 +1196,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 10,
             "gradientMode": "opacity",
@@ -1160,7 +1228,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1227,16 +1296,19 @@
           "sort": "desc"
         }
       },
+      "pluginVersion": "11.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "node_memory_SwapTotal_bytes - node_memory_SwapFree_bytes",
+          "editorMode": "code",
+          "expr": "node_memory_SwapTotal_bytes - node_memory_SwapFree_bytes{instance=~\"$instance\"}",
           "interval": "10s",
           "intervalFactor": 1,
           "legendFormat": "Used",
+          "range": true,
           "refId": "A",
           "step": 10
         },
@@ -1245,10 +1317,12 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "node_memory_SwapFree_bytes",
+          "editorMode": "code",
+          "expr": "node_memory_SwapFree_bytes{instance=~\"$instance\"}",
           "interval": "10s",
           "intervalFactor": 1,
           "legendFormat": "Free",
+          "range": true,
           "refId": "B",
           "step": 10
         }
@@ -1273,6 +1347,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 10,
             "gradientMode": "opacity",
@@ -1303,7 +1378,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1339,31 +1415,40 @@
           "sort": "none"
         }
       },
+      "pluginVersion": "11.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "editorMode": "code",
-          "expr": "node_filesystem_free_bytes{mountpoint=\"/\"}",
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "node_filesystem_free_bytes{mountpoint=\"/\", instance=~\"$instance\"}",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
           "instant": false,
           "legendFormat": "Free",
           "range": true,
-          "refId": "A"
+          "refId": "A",
+          "useBackend": false
         },
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "editorMode": "code",
-          "expr": "node_filesystem_size_bytes{mountpoint=\"/\"} - node_filesystem_free_bytes{mountpoint=\"/\"}",
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "node_filesystem_size_bytes{mountpoint=\"/\", instance=~\"$instance\"} - node_filesystem_free_bytes{mountpoint=\"/\", instance=~\"$instance\"}",
+          "fullMetaSearch": false,
           "hide": false,
+          "includeNullMetadata": true,
           "instant": false,
           "legendFormat": "Used",
           "range": true,
-          "refId": "B"
+          "refId": "B",
+          "useBackend": false
         }
       ],
       "title": "Disk Usage",
@@ -1371,47 +1456,43 @@
     }
   ],
   "refresh": "10s",
-  "schemaVersion": 39,
+  "schemaVersion": 40,
   "tags": [
     "system",
     "server",
     "prometheus"
   ],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "current": {},
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
+        "definition": "label_values(instance)",
+        "label": "System",
+        "name": "instance",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(instance)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "/^[^:]+$/",
+        "type": "query"
+      }
+    ]
   },
   "time": {
     "from": "now-24h",
     "to": "now"
   },
-  "timepicker": {
-    "refresh_intervals": [
-      "5s",
-      "10s",
-      "30s",
-      "1m",
-      "5m",
-      "15m",
-      "30m",
-      "1h",
-      "2h",
-      "1d"
-    ],
-    "time_options": [
-      "5m",
-      "15m",
-      "1h",
-      "6h",
-      "12h",
-      "24h",
-      "2d",
-      "7d",
-      "30d"
-    ]
-  },
+  "timepicker": {},
   "timezone": "browser",
-  "title": "Docker Host",
+  "title": "NodeExporter",
   "uid": "ddmvax2tzuv40c",
-  "version": 4,
+  "version": 1,
   "weekStart": ""
 }
