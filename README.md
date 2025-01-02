@@ -4,7 +4,9 @@ Templates for Grafana Dashboards
 These can be imported to Grafana to be used
 
 - Node Exporter Dashbaord
+  - Multiple Hosts Supported
 - cAdvisor Dashbaord
+  - Multiple Hosts Supported
 - Traefik Dashbaord
 - Cloudflare Tunnel Dashbaord
 
